@@ -1,0 +1,17 @@
+# Virtual Environment
+venv/
+
+# Python Cache Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE Specific Files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS Specific Files
+.DS_Store
+Thumbs.db
