@@ -11,6 +11,7 @@ ACF_FIELD_MAPPING = {
     "listing_price": "listing_price",
     "listing_address": "listing_address",
     "description": "description",
+    "mls": "mls",
     "bedrooms": "bedrooms",
     "bathrooms": "bathrooms",
     "size": "size",
@@ -18,9 +19,6 @@ ACF_FIELD_MAPPING = {
     "listing_style": "listing_style",
     "maintenance_fee": "maintenance_fee",
     "property_taxes": "property_taxes",
-    "ownership_interest": "ownership_interest",
-    "pid": "pid",
-    "seller_agent": "seller_agent",
     "features_&_amenities": "features_&_amenities",
     "gallery": "gallery"
 }
@@ -101,10 +99,10 @@ def convert_to_csv(data_list):
     return df.to_csv(index=False)
 
 def main():
-    st.title("Real Estate Scraper with ACF Alignment")
+    st.title("Steve's Real Estate Listings")
     
     st.write("""
-    Enter the URLs of the real estate listings you want to scrape, each on a new line. The app will extract relevant information from each URL, align it with your ACF fields, and provide it in a combined CSV format for easy importing.
+    Enter the URLs of the real estate listings you want to scrape, each on a new line. The app will extract relevant information from each URL. Download the CSV and import it.
     """)
     
     # Multiline text input for multiple URLs

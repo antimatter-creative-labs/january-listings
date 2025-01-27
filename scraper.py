@@ -5,6 +5,9 @@ import re
 
 def scrape_page(page, url):
     try:
+
+        mls_match = re.search(r'mls-(\w+)/', url)
+        mls = mls_match.group(1) if mls_match else 'N/A'
         # Navigate to the target URL
         page.goto(url, timeout=60000)  # 60 seconds timeout
 
@@ -24,6 +27,7 @@ def scrape_page(page, url):
         description_selector = "xpath=//div[@id='details-section']/following-sibling::div[1]"
         description_element = page.query_selector(description_selector)
         description = description_element.inner_text().strip() if description_element else 'N/A'
+
 
         # Extract Property Details from the table
         table_selector = 'table.stripedTable tbody'
@@ -65,6 +69,7 @@ def scrape_page(page, url):
             'listing_price': price,
             'listing_address': address,
             'description': description,
+            'mls': mls,
             'bedrooms': property_details.get('bedrooms', 'N/A'),
             'bathrooms': property_details.get('bathrooms', 'N/A'),
             'size': property_details.get('size_of_house', 'N/A'),
@@ -72,9 +77,6 @@ def scrape_page(page, url):
             'listing_style': property_details.get('style_of_house', 'N/A'),
             'maintenance_fee': property_details.get('maintenance_fee', 'N/A'),
             'property_taxes': property_details.get('property_taxes', 'N/A'),
-            'ownership_interest': property_details.get('ownership_interest', 'N/A'),
-            'pid': property_details.get('pid', 'N/A'),
-            'seller_agent': property_details.get("seller's_agent", 'N/A'),
             'features_&_amenities': features_list,
             'gallery': image_urls
         }
@@ -83,4 +85,4 @@ def scrape_page(page, url):
 
     except Exception as e:
         print(f"Error scraping URL {url}: {e}")
-        return {"url": url, "error": str(e)}
+
