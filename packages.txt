@@ -11,3 +11,7 @@ libgbm1
 libdrm2
 libxkbcommon0
 libasound2
+libgtk-3-0
+libpangocairo-1.0-0
+ca-certificates
+fonts-liberation
