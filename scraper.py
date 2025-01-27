@@ -2,6 +2,7 @@
 
 from playwright.sync_api import sync_playwright
 import re
+import datetime  # Add this import
 
 def scrape_page(page, url):
     try:
@@ -48,6 +49,23 @@ def scrape_page(page, url):
                     
                     property_details[key_main] = value_main
 
+        # Process Age to calculate built year
+        current_year = datetime.datetime.now().year
+        age_str = property_details.get('age_of_house', 'N/A')
+        built_year = 'N/A'
+        if age_str != 'N/A':
+            age_match = re.search(r'\d+', age_str)
+            if age_match:
+                try:
+                    age = int(age_match.group())
+                    built_year = current_year - age
+                except:
+                    built_year = 'N/A'
+            else:
+                built_year = 'N/A'
+        else:
+            built_year = 'N/A'
+
         # Extract Features & Amenities
         features_selector = 'div.section-heading:has-text("Features & Amenities") + div ul.striped.check-bullets'
         features_list = []
@@ -73,7 +91,7 @@ def scrape_page(page, url):
             'bedrooms': property_details.get('bedrooms', 'N/A'),
             'bathrooms': property_details.get('bathrooms', 'N/A'),
             'size': property_details.get('size_of_house', 'N/A'),
-            'age': property_details.get('age_of_house', 'N/A'),
+            'age': built_year,  # Updated to use calculated built_year
             'listing_style': property_details.get('style_of_house', 'N/A'),
             'maintenance_fee': property_details.get('maintenance_fee', 'N/A'),
             'property_taxes': property_details.get('property_taxes', 'N/A'),
@@ -85,4 +103,3 @@ def scrape_page(page, url):
 
     except Exception as e:
         print(f"Error scraping URL {url}: {e}")
-
