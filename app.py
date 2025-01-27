@@ -99,7 +99,7 @@ def convert_to_csv(data_list):
     return df.to_csv(index=False)
 
 def main():
-    st.title("Steve's Real Estate Listings")
+    st.title("Saretsky Real Estate Listings")
     
     st.write("""
     Enter the URLs of the real estate listings you want to scrape, each on a new line. The app will extract relevant information from each URL. Download the CSV and import it.
