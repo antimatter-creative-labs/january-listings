@@ -1,10 +1,17 @@
 # app.py
 
 import subprocess
+
+# Install Playwright browsers
+try:
+    subprocess.run(["playwright", "install"], check=True)
+except subprocess.CalledProcessError:
+    pass  # Handle errors if necessary
+
 import streamlit as st
 import pandas as pd
 from scraper import scrape_page
-from playwright.async_api import async_playwright
+from playwright.sync_api import sync_playwright
 
 # Define ACF field names and their corresponding data extraction
 ACF_FIELD_MAPPING = {
